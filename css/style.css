@@ -1,0 +1,41 @@
+#the-fighters-picture,
+#this-is-you-picture,
+#this-is-your-rival-picture,
+#good-luck-picture,
+#this-rival-face,
+#this-rival-body,
+#this-rival-legs,
+#you-face,
+#you-body {
+    max-height: 550px;
+    width: auto;
+}
+
+.btn {
+    border-radius: 30px;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#box1,
+#box2,
+#box3 {
+    width: 200px;
+    height: 250px;
+    text-align: center;
+    line-height: 50px;
+}
+
+#your-attack,
+#hand-or-leg,
+#rival-attack,
+#what-protect,
+#where-to-attack,
+#attack-result-text {
+    margin-bottom: 5%;
+}

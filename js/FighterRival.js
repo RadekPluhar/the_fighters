@@ -1,0 +1,51 @@
+import { AttackRegister } from "./AttackRegister.js";
+import { FighterAbstract } from "./FighterAbstract.js";
+export class FighterRival extends FighterAbstract {
+    constructor(name) {
+        super(name);
+    }
+    yesOrNo() {
+        return Math.random() < 0.5;
+    }
+    rivalAttacks(headOrBody) {
+        const attack = this.choiceOfAttack(headOrBody);
+        return attack;
+    }
+    choiceOfAttack(headOrBody) {
+        let attackNow = [];
+        const choice = Math.floor(Math.random() * 4);
+        if (headOrBody === 'head') {
+            switch (choice) {
+                case 0:
+                    attackNow = [AttackRegister.youGotPunchedInTheAbdomen, AttackRegister.youGotPunchedInTheAbdomenPic];
+                    break;
+                case 1:
+                    attackNow = [AttackRegister.youGotPunched, AttackRegister.youGotPunchedInTheBackByFoot];
+                    break;
+                case 2:
+                    attackNow = [AttackRegister.youStoppedAPunchToTheFace, AttackRegister.youStoppedAPunchToTheFacePic];
+                    break;
+                case 3:
+                    attackNow = [AttackRegister.youStoppedAPunch, AttackRegister.youStoppedAPunchToTheFaceByFoot];
+                    break;
+            }
+        }
+        if (headOrBody === 'body') {
+            switch (choice) {
+                case 0:
+                    attackNow = [AttackRegister.youGotPunchedInTheFace, AttackRegister.youGotPunchedInTheFacePic];
+                    break;
+                case 1:
+                    attackNow = [AttackRegister.youGotPunched, AttackRegister.youGotPunchedInTheFaceByFoot];
+                    break;
+                case 2:
+                    attackNow = [AttackRegister.youStoppedAPunchToTheAbdomen, AttackRegister.youStoppedAPunchToTheAbdomenPic];
+                    break;
+                case 3:
+                    attackNow = [AttackRegister.youStoppedAPunch, AttackRegister.youStoppedAPunchToTheAbdomenByFoot];
+                    break;
+            }
+        }
+        return attackNow;
+    }
+}
