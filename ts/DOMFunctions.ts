@@ -1,7 +1,14 @@
 import { AttackRegister } from "./AttackRegister.js";
 
+/**
+ * class for creating, deleting and manipulating HTML elements
+ */
 export class DOMFunctions {
 
+    /**
+     * after we see the result of the attack of our fighter or rival and click on the NEXT button, unnecessary elements are removed
+     * and in the case of the end of the match, elements are created to draw information and a picture of who won
+     */
     public deletingSpacesAfterAttack() {
         this.deletingElement('space', 'attack-result-text');
         this.deletingElement('space', 'attack-result-picture');
@@ -10,15 +17,37 @@ export class DOMFunctions {
         this.createElementWithId('space', 'p', 'button-space');
     }
 
+    /**
+     * creating elements to choose what I will protect when a rival attacks
+     */
     public creatingSpaceForRivalAttack() {
         this.creatingSpacesForAttacks('rival-attack', AttackRegister.theRivalIsAboutAttack, 'protect-head', 'protect-body', AttackRegister.chooseWhatYouWillProtectHead,
             AttackRegister.chooseWhatYouWillProtectBody, 'protect-head-button', 'protect-body-button', 'HEAD', 'BODY', 'what-protect',
             AttackRegister.chooseWhatYouWillProtect, undefined, undefined, undefined, undefined, 'picture-space', 'button-space');
     }
 
+    /**
+     * elements for a result of an attack
+     * @param underSpace_1 element we need to delete (No. 1)
+     * @param underSpace_2 element we need to delete (No. 2)
+     * @param text text of a result of an attack
+     * @param pictureId id of an image showing the result of the attack
+     * @param picturePath a path to an image showing the result of the attack
+     * @param underSpace_3 element we need to delete (No. 3)
+     */
     public creatingSpaceForResultOfAttack(underSpace_1: string, underSpace_2: string, text: string, pictureId: string, picturePath: string,
-        underSpace_3?: string
-    ) {
+        underSpace_3?: string) {
+
+        /**
+         * error message
+         */
+        if (underSpace_1 === undefined || typeof underSpace_1 !== 'string' || underSpace_2 === undefined || typeof underSpace_2 !== 'string'
+            || text === undefined || typeof text !== 'string' || pictureId === undefined || typeof pictureId !== 'string'
+            || picturePath === undefined || typeof picturePath !== 'string') {
+            console.error("function 'creatingSpaceForResultOfAttack': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         this.deletingElement('space', underSpace_1);
         this.deletingElement('space', underSpace_2);
         if (underSpace_3)
@@ -31,6 +60,10 @@ export class DOMFunctions {
         this.createButtonElementWithClass('button-space', 'button', 'next-button', 'NEXT', 'btn btn-dark');
     }
 
+    /**
+     * creating elements to select where to attack with my hand
+     * @returns number 0
+     */
     public creatingSpaceForYourAttackWhereToAttackByHand(): number {
         this.creatingSpacesForAttacks('where-to-attack', AttackRegister.chooseWhereToAttack, 'attack-to-head', 'attack-to-body',
             AttackRegister.chooseWhereToAttackHead, AttackRegister.chooseWhereToAttackBody, 'attack-to-head-button', 'attack-to-body-button', 'HEAD', 'BODY',
@@ -38,6 +71,10 @@ export class DOMFunctions {
         return 0;
     }
 
+    /**
+     * creating elements to select where to attack with my leg
+     * @returns number 1
+     */
     public creatingSpaceForYourAttackWhereToAttackByLeg(): number {
         this.creatingSpacesForAttacks('where-to-attack', AttackRegister.chooseWhereToAttack, 'attack-to-head', 'attack-to-body',
             AttackRegister.chooseWhereToAttackHead, AttackRegister.chooseWhereToAttackBody, 'attack-to-head-button', 'attack-to-body-button', 'HEAD', 'BODY', undefined,
@@ -45,10 +82,50 @@ export class DOMFunctions {
         return 1;
     }
 
+    /**
+     * creating elements that allow the user to defend or attack
+     * @param textingSpaceId_1 h3 element id for accompanying text (No. 1)
+     * @param text_1 accompanying text (No. 1)
+     * @param pictureId_1 id of a picture (No. 1)
+     * @param pictureId_2 id of a picture (No. 2)
+     * @param picturePath_1 a path to a picture (No. 1)
+     * @param picturePath_2 a path to a picture (No. 2)
+     * @param buttonId_1 id of a button (No. 1)
+     * @param buttonId_2 id of a button (No. 2)
+     * @param buttonLabel_1 text on a button (No. 1)
+     * @param buttonLabel_2 text on a button (No. 2)
+     * @param textingSpaceId_2 h3 element id for accompanying text (No. 2)
+     * @param text_2 accompanying text (No. 2)
+     * @param pictureId_3 id of a picture (No. 3)
+     * @param picturePath_3 a path to a picture (No. 3)
+     * @param buttonId_3 id of a button (No. 3)
+     * @param buttonLabel_3 text on a button (No. 3)
+     * @param underSpace_1 element we need to delete (No. 1)
+     * @param underSpace_2 element we need to delete (No. 2)
+     * @param underSpace_3 element we need to delete (No. 3)
+     */
     creatingSpacesForAttacks(textingSpaceId_1: string, text_1: AttackRegister, pictureId_1: string, pictureId_2: string, picturePath_1: AttackRegister,
         picturePath_2: AttackRegister, buttonId_1: string, buttonId_2: string, buttonLabel_1: string, buttonLabel_2: string, textingSpaceId_2?: string,
         text_2?: AttackRegister, pictureId_3?: string, picturePath_3?: AttackRegister, buttonId_3?: string, buttonLabel_3?: string, underSpace_1?: string,
         underSpace_2?: string, underSpace_3?: string): void {
+
+        /**
+         * error message
+         */
+        if (textingSpaceId_1 === undefined || typeof textingSpaceId_1 !== 'string' || text_1 === undefined || typeof text_1 !== 'string'
+            || pictureId_1 === undefined || typeof pictureId_1 !== 'string' || pictureId_2 === undefined || typeof pictureId_2 !== 'string'
+            || picturePath_1 === undefined || typeof picturePath_1 !== 'string' || picturePath_2 === undefined || typeof picturePath_2 !== 'string'
+            || buttonId_1 === undefined || typeof buttonId_1 !== 'string' || buttonId_2 === undefined || typeof buttonId_2 !== 'string'
+            || buttonLabel_1 === undefined || typeof buttonLabel_1 !== 'string' || buttonLabel_2 === undefined || typeof buttonLabel_2 !== 'string'
+            || textingSpaceId_2 !== undefined && typeof textingSpaceId_2 !== 'string' || text_2 !== undefined && typeof text_2 !== 'string'
+            || pictureId_3 !== undefined && typeof pictureId_3 !== 'string' || picturePath_3 !== undefined && typeof picturePath_3 !== 'string'
+            || buttonId_3 !== undefined && typeof buttonId_3 !== 'string' || buttonLabel_3 !== undefined && typeof buttonLabel_3 !== 'string'
+            || underSpace_1 !== undefined && typeof underSpace_1 !== 'string' || underSpace_2 !== undefined && typeof underSpace_2 !== 'string'
+            || underSpace_3 !== undefined && typeof underSpace_3 !== 'string') {
+            console.error("function 'creatingSpacesForAttacks': some parameters must not be undefined and all parameters must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         if (underSpace_1)
             this.deletingElement('space', underSpace_1);
         if (underSpace_2)
@@ -68,21 +145,83 @@ export class DOMFunctions {
             this.creatingABoxForContainer('box3', pictureId_3, picturePath_3, buttonId_3, buttonLabel_3);
     }
 
+    /**
+     * a box for an image and a button where the user chooses what to attack or defend with
+     * @param parent a parent element
+     * @param pictureId id of a picture
+     * @param picturePath a path to a picture
+     * @param buttonId id of a button
+     * @param buttonLabel text on a button
+     */
     private creatingABoxForContainer(parent: string, pictureId: string, picturePath: string, buttonId: string, buttonLabel: string) {
+
+        /**
+         * error message
+         */
+        if (parent === undefined || typeof parent !== 'string' || pictureId === undefined || typeof pictureId !== 'string'
+            || picturePath === undefined || typeof picturePath !== 'string' || buttonId === undefined || typeof buttonId !== 'string'
+            || buttonLabel === undefined || typeof buttonLabel !== 'string') {
+            console.error("function 'creatingABoxForContainer': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         this.createElementWithId('container', 'div', parent);
         this.createImageElementWithClass(parent, 'img', pictureId, picturePath, 'img-fluid rounded');
         this.createButtonElementWithClass(parent, 'button', buttonId, buttonLabel, 'btn btn-dark');
     }
 
+    /**
+     * a comment on the result of the attack
+     * @param text text of the comment
+     * @param parent parent element for the text
+     */
     private createTextNode(text: string, parent: string) {
+
+        /**
+         * error message
+         */
+        if (text === undefined || typeof text !== 'string' || parent === undefined || typeof parent !== 'string') {
+            console.error("function 'createTextNode': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const letters = document.createTextNode(text);
         const parentElement = document.getElementById(parent);
         parentElement?.appendChild(letters);
     }
 
+    /**
+     * a bar with a charged life for every fighter
+     * @param parentElement a parent element
+     * @param typeOfDiv a type of HTML element (div)
+     * @param firstDivClass a class for first div
+     * @param firstDivTextValue the text that appears as the fighter's name (first div)
+     * @param secondDivId id of a second div
+     * @param secondDivClass a class of a second div
+     * @param secondDivRole a role of a second div
+     * @param secondDivAriaValueNow current aria value
+     * @param secondDivAriaValueMin minimum aria value
+     * @param secondDivAriaValueMax maximum aria value
+     * @param secondDivTextValue initial value that appears in the life bar (100 %)
+     */
     private creatingProgressBar(parentElement: string, typeOfDiv: string, firstDivClass: string, firstDivTextValue: string,
         secondDivId: string, secondDivClass: string, secondDivRole: string, secondDivAriaValueNow: string, secondDivAriaValueMin: string,
         secondDivAriaValueMax: string, secondDivTextValue: string) {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeof parentElement !== 'string' || typeOfDiv === undefined || typeof typeOfDiv !== 'string'
+            || firstDivClass === undefined || typeof firstDivClass !== 'string' || firstDivTextValue === undefined || typeof firstDivTextValue !== 'string'
+            || secondDivId === undefined || typeof secondDivId !== 'string' || secondDivClass === undefined || typeof secondDivClass !== 'string'
+            || secondDivRole === undefined || typeof secondDivRole !== 'string' || secondDivAriaValueNow === undefined || typeof secondDivAriaValueNow !== 'string'
+            || secondDivAriaValueMin === undefined || typeof secondDivAriaValueMin !== 'string'
+            || secondDivAriaValueMax === undefined || typeof secondDivAriaValueMax !== 'string'
+            || secondDivTextValue === undefined || typeof secondDivTextValue !== 'string') {
+            console.error("function 'creatingProgressBar': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const firstDiv = this.createElement(parentElement, typeOfDiv);
         firstDiv.className = firstDivClass;
         const firstDivText = document.createTextNode(firstDivTextValue);
@@ -99,6 +238,9 @@ export class DOMFunctions {
         firstDiv.appendChild(secondDiv);
     }
 
+    /**
+     * picture just before the fight (GOOD LUCK)
+     */
     public transitionToGoodLuck() {
         this.deletingElement('space', 'picture-space');
         this.deletingElement('space', 'button-space');
@@ -113,22 +255,76 @@ export class DOMFunctions {
         this.createButtonElementWithClass('button-space', 'button', 'good-luck-button', 'START THE FIGHT', 'btn btn-dark');
     }
 
-    private deletingElement(parentElement: string, childElement: string) {
+    /**
+     * deleting HTML element
+     * @param parentElement parent element in which the element is deleted
+     * @param childElement element to be deleted
+     */
+    public deletingElement(parentElement: string, childElement: string) {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeof parentElement !== 'string' || childElement === undefined || typeof childElement !== 'string') {
+            console.error("function 'deletingElement': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const parent = document.getElementById(parentElement);
         let child = document.getElementById(childElement) as Node;
         parent?.removeChild(child);
     }
 
+    /**
+     * displaying your warrior and rival
+     * @param idOfPicture id of a picture
+     * @param pathToPicture a path to the picture
+     * @param idOfButton id of a button
+     * @param labelOfButton the text that appears on the button
+     * @param pictureThere the previous image, which will be deleted
+     * @param buttonThere the previous button, which will be deleted
+     */
     public transitionToYouAndRival(idOfPicture: string, pathToPicture: string, idOfButton: string, labelOfButton: string,
         pictureThere: string, buttonThere: string) {
+
+        /**
+         * error message
+         */
+        if (idOfPicture === undefined || typeof idOfPicture !== 'string' || pathToPicture === undefined || typeof pathToPicture !== 'string'
+            || idOfButton === undefined || typeof idOfButton !== 'string' || labelOfButton === undefined || typeof labelOfButton !== 'string'
+            || pictureThere === undefined || typeof pictureThere !== 'string' || buttonThere === undefined || typeof buttonThere !== 'string') {
+            console.error("function 'transitionToYouAndRival': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         document.getElementById(pictureThere)?.remove();
         document.getElementById(buttonThere)?.remove();
         this.createImageElementWithClass('picture-space', 'img', idOfPicture, pathToPicture, 'img-fluid rounded');
         this.createButtonElementWithClass('button-space', 'button', idOfButton, labelOfButton, 'btn btn-dark');
     }
 
+    /**
+     * creating HTML button element with class
+     * @param parentElement parent element into which the new element is inserted
+     * @param typeOfElement type of an element
+     * @param idOfElement id of an element
+     * @param labelOfButton the text that appears on the button
+     * @param classOfButton a class of an element
+     * @returns HTML button element
+     */
     public createButtonElementWithClass(parentElement: string, typeOfElement: string, idOfElement: string, labelOfButton: string,
         classOfButton: string): HTMLButtonElement {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeOfElement === undefined || typeof parentElement !== 'string' || typeof typeOfElement !== 'string'
+            || idOfElement === undefined || typeof idOfElement !== 'string' || labelOfButton === undefined || typeof labelOfButton !== 'string'
+            || classOfButton === undefined || typeof classOfButton !== 'string') {
+            console.error("function 'createButtonElementWithClass': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const newButton = this.createElementWithId(parentElement, typeOfElement, idOfElement) as HTMLButtonElement;
         newButton.className = classOfButton;
         const buttonLabel = document.createTextNode(labelOfButton);
@@ -136,21 +332,73 @@ export class DOMFunctions {
         return newButton;
     }
 
+    /**
+     * creating HTML image element with class
+     * @param parentElement parent element into which the new element is inserted
+     * @param typeOfElement type of an element
+     * @param idOfElement id of an element
+     * @param srcOfElement the path to the picture
+     * @param classOfElement a class of an element
+     * @returns HTML image element
+     */
     public createImageElementWithClass(parentElement: string, typeOfElement: string, idOfElement: string, srcOfElement: string,
         classOfElement: string): HTMLImageElement {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeOfElement === undefined || typeof parentElement !== 'string' || typeof typeOfElement !== 'string'
+            || idOfElement === undefined || typeof idOfElement !== 'string' || srcOfElement === undefined || typeof srcOfElement !== 'string'
+            || classOfElement === undefined || typeof classOfElement !== 'string') {
+            console.error("function 'createImageElementWithClass': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const newElement = this.createElementWithId(parentElement, typeOfElement, idOfElement) as HTMLImageElement;
         newElement.src = srcOfElement;
         newElement.className = classOfElement;
         return newElement;
     }
 
+    /**
+     * creating HTML element with id
+     * @param parentElement parent element into which the new element is inserted
+     * @param typeOfElement type of an element
+     * @param idOfElement id of an element
+     * @returns HTML element
+     */
     public createElementWithId(parentElement: string, typeOfElement: string, idOfElement: string): HTMLElement {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeOfElement === undefined || typeof parentElement !== 'string' || typeof typeOfElement !== 'string'
+            || idOfElement === undefined || typeof idOfElement !== 'string') {
+            console.error("function 'createElementWithId': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const newElement = this.createElement(parentElement, typeOfElement);
         newElement.id = idOfElement;
         return newElement;
     }
 
+    /**
+     * creating HTML element
+     * @param parentElement parent element into which the new element is inserted
+     * @param typeOfElement type of an element
+     * @returns HTML element
+     */
     private createElement(parentElement: string, typeOfElement: string): HTMLElement {
+
+        /**
+         * error message
+         */
+        if (parentElement === undefined || typeOfElement === undefined || typeof parentElement !== 'string' || typeof typeOfElement !== 'string') {
+            console.error("function 'createElement': parameters must not be undefined and must be type of string!");
+            throw new Error("Invalid input: some parameter is incorrect.");
+        }
+
         const superiorElement = document.getElementById(parentElement);
         const newElement = document.createElement(typeOfElement);
         superiorElement?.appendChild(newElement);
